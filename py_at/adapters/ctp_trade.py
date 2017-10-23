@@ -11,11 +11,11 @@ import _thread
 import time
 from time import sleep
 import itertools
-from py_at.switch import *
+from py_at.switch import switch
 
-from py_at.adapters.TradeAdapter import *
-from py_ctp.trade import *
-from py_ctp.ctp_struct import *
+from py_at.adapters.TradeAdapter import TradeAdapter
+from py_ctp.trade import Trade
+import py_ctp.ctp_struct
 
 class CtpTrade(TradeAdapter):
 	""""""
@@ -26,7 +26,6 @@ class CtpTrade(TradeAdapter):
 		self.__posi = []
 		self.t = Trade()
 
-# ------------------
 	def __qry(self):
 		"""查询帐号相关信息"""
 		self.t.ReqQryInstrument()
@@ -39,13 +38,13 @@ class CtpTrade(TradeAdapter):
 			self.t.ReqQryTradingAccount(self.BrokerID, self.Investor)
 
 	def __OnFrontConnected(self):
-		self.OnFrontConnected()
+		self.OnFrontConnected() 
 
 	def __OnFrontDisconnected(self, nReason):
 		self.IsLogin = False
 		self.OnFrontDisConnected(nReason)
 
-	def __OnRspUserLogin(self, pRspUserLogin = CThostFtdcRspUserLoginField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
+	def __OnRspUserLogin(self, pRspUserLogin= CThostFtdcRspUserLoginField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
 		""""""
 		self.Investor = pRspUserLogin.getUserID()
 		self.BrokerID = pRspUserLogin.getBrokerID()

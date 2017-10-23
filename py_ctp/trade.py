@@ -1,11 +1,21 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-from py_ctp.ctp_struct import *
+"""
+__title__ = ''
+__author__ = 'HaiFeng'
+__mtime__ = '2016/9/13'
+"""
+
+from ctp_struct import *
 import os
 import sys
 import platform
 
+
 def isWindowsSystem():
 	return 'Windows' in platform.system()
+
 
 class Trade:
 
@@ -28,7 +38,7 @@ class Trade:
 		if isWindowsSystem():
 			self.h = CDLL("ctp_Trade.dll")
 		else:
-			self.h = cdll.LoadLibrary("ctp_trade.so")
+			self.h = cdll.LoadLibrary("./ctp_trade.so")
 
 		self.h.CreateApi.argtypes = []
 		self.h.CreateApi.restype = c_void_p
@@ -47,172 +57,171 @@ class Trade:
 		self.h.Join.restype = c_void_p
 		self.h.GetTradingDay.argtypes = [c_void_p]
 		self.h.GetTradingDay.restype = c_void_p
-		self.h.RegisterFront.argtypes = [c_void_p , c_char_p]
+		self.h.RegisterFront.argtypes = [c_void_p, c_char_p]
 		self.h.RegisterFront.restype = c_void_p
-		self.h.RegisterNameServer.argtypes = [c_void_p , c_char_p]
+		self.h.RegisterNameServer.argtypes = [c_void_p, c_char_p]
 		self.h.RegisterNameServer.restype = c_void_p
-		self.h.RegisterFensUserInfo.argtypes = [c_void_p , c_void_p]
+		self.h.RegisterFensUserInfo.argtypes = [c_void_p, c_void_p]
 		self.h.RegisterFensUserInfo.restype = c_void_p
-		self.h.RegisterSpi.argtypes = [c_void_p , c_void_p]
+		self.h.RegisterSpi.argtypes = [c_void_p, c_void_p]
 		self.h.RegisterSpi.restype = c_void_p
-		self.h.SubscribePrivateTopic.argtypes = [c_void_p , c_void_p]
+		self.h.SubscribePrivateTopic.argtypes = [c_void_p, c_void_p]
 		self.h.SubscribePrivateTopic.restype = c_void_p
-		self.h.SubscribePublicTopic.argtypes = [c_void_p , c_void_p]
+		self.h.SubscribePublicTopic.argtypes = [c_void_p, c_void_p]
 		self.h.SubscribePublicTopic.restype = c_void_p
-		self.h.ReqAuthenticate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqAuthenticate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqAuthenticate.restype = c_void_p
-		self.h.ReqUserLogin.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqUserLogin.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqUserLogin.restype = c_void_p
-		self.h.ReqUserLogout.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqUserLogout.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqUserLogout.restype = c_void_p
-		self.h.ReqUserPasswordUpdate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqUserPasswordUpdate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqUserPasswordUpdate.restype = c_void_p
-		self.h.ReqTradingAccountPasswordUpdate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqTradingAccountPasswordUpdate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqTradingAccountPasswordUpdate.restype = c_void_p
-		self.h.ReqOrderInsert.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqOrderInsert.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqOrderInsert.restype = c_void_p
-		self.h.ReqParkedOrderInsert.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqParkedOrderInsert.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqParkedOrderInsert.restype = c_void_p
-		self.h.ReqParkedOrderAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqParkedOrderAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqParkedOrderAction.restype = c_void_p
-		self.h.ReqOrderAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqOrderAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqOrderAction.restype = c_void_p
-		self.h.ReqQueryMaxOrderVolume.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQueryMaxOrderVolume.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQueryMaxOrderVolume.restype = c_void_p
-		self.h.ReqSettlementInfoConfirm.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqSettlementInfoConfirm.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqSettlementInfoConfirm.restype = c_void_p
-		self.h.ReqRemoveParkedOrder.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqRemoveParkedOrder.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqRemoveParkedOrder.restype = c_void_p
-		self.h.ReqRemoveParkedOrderAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqRemoveParkedOrderAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqRemoveParkedOrderAction.restype = c_void_p
-		self.h.ReqExecOrderInsert.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqExecOrderInsert.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqExecOrderInsert.restype = c_void_p
-		self.h.ReqExecOrderAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqExecOrderAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqExecOrderAction.restype = c_void_p
-		self.h.ReqForQuoteInsert.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqForQuoteInsert.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqForQuoteInsert.restype = c_void_p
-		self.h.ReqQuoteInsert.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQuoteInsert.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQuoteInsert.restype = c_void_p
-		self.h.ReqQuoteAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQuoteAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQuoteAction.restype = c_void_p
-		self.h.ReqLockInsert.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqLockInsert.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqLockInsert.restype = c_void_p
-		self.h.ReqBatchOrderAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqBatchOrderAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqBatchOrderAction.restype = c_void_p
-		self.h.ReqCombActionInsert.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqCombActionInsert.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqCombActionInsert.restype = c_void_p
-		self.h.ReqQryOrder.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryOrder.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryOrder.restype = c_void_p
-		self.h.ReqQryTrade.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryTrade.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryTrade.restype = c_void_p
-		self.h.ReqQryInvestorPosition.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInvestorPosition.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInvestorPosition.restype = c_void_p
-		self.h.ReqQryTradingAccount.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryTradingAccount.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryTradingAccount.restype = c_void_p
-		self.h.ReqQryInvestor.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInvestor.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInvestor.restype = c_void_p
-		self.h.ReqQryTradingCode.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryTradingCode.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryTradingCode.restype = c_void_p
-		self.h.ReqQryInstrumentMarginRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInstrumentMarginRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInstrumentMarginRate.restype = c_void_p
-		self.h.ReqQryInstrumentCommissionRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInstrumentCommissionRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInstrumentCommissionRate.restype = c_void_p
-		self.h.ReqQryExchange.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryExchange.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryExchange.restype = c_void_p
-		self.h.ReqQryProduct.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryProduct.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryProduct.restype = c_void_p
-		self.h.ReqQryInstrument.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInstrument.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInstrument.restype = c_void_p
-		self.h.ReqQryDepthMarketData.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryDepthMarketData.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryDepthMarketData.restype = c_void_p
-		self.h.ReqQrySettlementInfo.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQrySettlementInfo.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQrySettlementInfo.restype = c_void_p
-		self.h.ReqQryTransferBank.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryTransferBank.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryTransferBank.restype = c_void_p
-		self.h.ReqQryInvestorPositionDetail.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInvestorPositionDetail.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInvestorPositionDetail.restype = c_void_p
-		self.h.ReqQryNotice.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryNotice.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryNotice.restype = c_void_p
-		self.h.ReqQrySettlementInfoConfirm.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQrySettlementInfoConfirm.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQrySettlementInfoConfirm.restype = c_void_p
-		self.h.ReqQryInvestorPositionCombineDetail.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInvestorPositionCombineDetail.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInvestorPositionCombineDetail.restype = c_void_p
-		self.h.ReqQryCFMMCTradingAccountKey.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryCFMMCTradingAccountKey.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryCFMMCTradingAccountKey.restype = c_void_p
-		self.h.ReqQryEWarrantOffset.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryEWarrantOffset.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryEWarrantOffset.restype = c_void_p
-		self.h.ReqQryInvestorProductGroupMargin.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInvestorProductGroupMargin.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInvestorProductGroupMargin.restype = c_void_p
-		self.h.ReqQryExchangeMarginRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryExchangeMarginRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryExchangeMarginRate.restype = c_void_p
-		self.h.ReqQryExchangeMarginRateAdjust.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryExchangeMarginRateAdjust.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryExchangeMarginRateAdjust.restype = c_void_p
-		self.h.ReqQryExchangeRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryExchangeRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryExchangeRate.restype = c_void_p
-		self.h.ReqQrySecAgentACIDMap.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQrySecAgentACIDMap.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQrySecAgentACIDMap.restype = c_void_p
-		self.h.ReqQryProductExchRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryProductExchRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryProductExchRate.restype = c_void_p
-		self.h.ReqQryProductGroup.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryProductGroup.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryProductGroup.restype = c_void_p
-		self.h.ReqQryMMInstrumentCommissionRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryMMInstrumentCommissionRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryMMInstrumentCommissionRate.restype = c_void_p
-		self.h.ReqQryMMOptionInstrCommRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryMMOptionInstrCommRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryMMOptionInstrCommRate.restype = c_void_p
-		self.h.ReqQryInstrumentOrderCommRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInstrumentOrderCommRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInstrumentOrderCommRate.restype = c_void_p
-		self.h.ReqQryOptionInstrTradeCost.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryOptionInstrTradeCost.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryOptionInstrTradeCost.restype = c_void_p
-		self.h.ReqQryOptionInstrCommRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryOptionInstrCommRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryOptionInstrCommRate.restype = c_void_p
-		self.h.ReqQryExecOrder.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryExecOrder.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryExecOrder.restype = c_void_p
-		self.h.ReqQryForQuote.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryForQuote.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryForQuote.restype = c_void_p
-		self.h.ReqQryQuote.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryQuote.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryQuote.restype = c_void_p
-		self.h.ReqQryLock.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryLock.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryLock.restype = c_void_p
-		self.h.ReqQryLockPosition.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryLockPosition.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryLockPosition.restype = c_void_p
-		self.h.ReqQryETFOptionInstrCommRate.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryETFOptionInstrCommRate.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryETFOptionInstrCommRate.restype = c_void_p
-		self.h.ReqQryInvestorLevel.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryInvestorLevel.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryInvestorLevel.restype = c_void_p
-		self.h.ReqQryExecFreeze.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryExecFreeze.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryExecFreeze.restype = c_void_p
-		self.h.ReqQryCombInstrumentGuard.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryCombInstrumentGuard.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryCombInstrumentGuard.restype = c_void_p
-		self.h.ReqQryCombAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryCombAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryCombAction.restype = c_void_p
-		self.h.ReqQryTransferSerial.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryTransferSerial.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryTransferSerial.restype = c_void_p
-		self.h.ReqQryAccountregister.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryAccountregister.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryAccountregister.restype = c_void_p
-		self.h.ReqQryContractBank.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryContractBank.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryContractBank.restype = c_void_p
-		self.h.ReqQryParkedOrder.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryParkedOrder.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryParkedOrder.restype = c_void_p
-		self.h.ReqQryParkedOrderAction.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryParkedOrderAction.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryParkedOrderAction.restype = c_void_p
-		self.h.ReqQryTradingNotice.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryTradingNotice.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryTradingNotice.restype = c_void_p
-		self.h.ReqQryBrokerTradingParams.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryBrokerTradingParams.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryBrokerTradingParams.restype = c_void_p
-		self.h.ReqQryBrokerTradingAlgos.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQryBrokerTradingAlgos.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQryBrokerTradingAlgos.restype = c_void_p
-		self.h.ReqQueryCFMMCTradingAccountToken.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQueryCFMMCTradingAccountToken.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQueryCFMMCTradingAccountToken.restype = c_void_p
-		self.h.ReqFromBankToFutureByFuture.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqFromBankToFutureByFuture.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqFromBankToFutureByFuture.restype = c_void_p
-		self.h.ReqFromFutureToBankByFuture.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqFromFutureToBankByFuture.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqFromFutureToBankByFuture.restype = c_void_p
-		self.h.ReqQueryBankAccountMoneyByFuture.argtypes = [c_void_p , c_void_p , c_int32]
+		self.h.ReqQueryBankAccountMoneyByFuture.argtypes = [c_void_p, c_void_p, c_int32]
 		self.h.ReqQueryBankAccountMoneyByFuture.restype = c_void_p
 
 		# restore work directory
 		os.chdir(cur_path)
-
 
 	def RegCB(self):
 		"""在createapi, createspi后调用"""
@@ -819,376 +828,377 @@ class Trade:
 
 	def __OnFrontConnected(self):
 		self.OnFrontConnected()
-	
+
 	def __OnFrontDisconnected(self, nReason):
 		self.OnFrontDisconnected(nReason)
-	
+
 	def __OnHeartBeatWarning(self, nTimeLapse):
 		self.OnHeartBeatWarning(nTimeLapse)
-	
+
 	def __OnRspAuthenticate(self, pRspAuthenticateField, pRspInfo, nRequestID, bIsLast):
 		self.OnRspAuthenticate(POINTER(CThostFtdcRspAuthenticateField).from_param(pRspAuthenticateField).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspUserLogin(self, pRspUserLogin, pRspInfo, nRequestID, bIsLast):
 		self.OnRspUserLogin(POINTER(CThostFtdcRspUserLoginField).from_param(pRspUserLogin).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspUserLogout(self, pUserLogout, pRspInfo, nRequestID, bIsLast):
 		self.OnRspUserLogout(POINTER(CThostFtdcUserLogoutField).from_param(pUserLogout).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspUserPasswordUpdate(self, pUserPasswordUpdate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspUserPasswordUpdate(POINTER(CThostFtdcUserPasswordUpdateField).from_param(pUserPasswordUpdate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspTradingAccountPasswordUpdate(self, pTradingAccountPasswordUpdate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspTradingAccountPasswordUpdate(POINTER(CThostFtdcTradingAccountPasswordUpdateField).from_param(pTradingAccountPasswordUpdate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspOrderInsert(self, pInputOrder, pRspInfo, nRequestID, bIsLast):
 		self.OnRspOrderInsert(POINTER(CThostFtdcInputOrderField).from_param(pInputOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspParkedOrderInsert(self, pParkedOrder, pRspInfo, nRequestID, bIsLast):
 		self.OnRspParkedOrderInsert(POINTER(CThostFtdcParkedOrderField).from_param(pParkedOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspParkedOrderAction(self, pParkedOrderAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspParkedOrderAction(POINTER(CThostFtdcParkedOrderActionField).from_param(pParkedOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspOrderAction(self, pInputOrderAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspOrderAction(POINTER(CThostFtdcInputOrderActionField).from_param(pInputOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQueryMaxOrderVolume(self, pQueryMaxOrderVolume, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQueryMaxOrderVolume(POINTER(CThostFtdcQueryMaxOrderVolumeField).from_param(pQueryMaxOrderVolume).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspSettlementInfoConfirm(self, pSettlementInfoConfirm, pRspInfo, nRequestID, bIsLast):
 		self.OnRspSettlementInfoConfirm(POINTER(CThostFtdcSettlementInfoConfirmField).from_param(pSettlementInfoConfirm).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspRemoveParkedOrder(self, pRemoveParkedOrder, pRspInfo, nRequestID, bIsLast):
 		self.OnRspRemoveParkedOrder(POINTER(CThostFtdcRemoveParkedOrderField).from_param(pRemoveParkedOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspRemoveParkedOrderAction(self, pRemoveParkedOrderAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspRemoveParkedOrderAction(POINTER(CThostFtdcRemoveParkedOrderActionField).from_param(pRemoveParkedOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspExecOrderInsert(self, pInputExecOrder, pRspInfo, nRequestID, bIsLast):
 		self.OnRspExecOrderInsert(POINTER(CThostFtdcInputExecOrderField).from_param(pInputExecOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspExecOrderAction(self, pInputExecOrderAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspExecOrderAction(POINTER(CThostFtdcInputExecOrderActionField).from_param(pInputExecOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspForQuoteInsert(self, pInputForQuote, pRspInfo, nRequestID, bIsLast):
 		self.OnRspForQuoteInsert(POINTER(CThostFtdcInputForQuoteField).from_param(pInputForQuote).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQuoteInsert(self, pInputQuote, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQuoteInsert(POINTER(CThostFtdcInputQuoteField).from_param(pInputQuote).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQuoteAction(self, pInputQuoteAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQuoteAction(POINTER(CThostFtdcInputQuoteActionField).from_param(pInputQuoteAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspLockInsert(self, pInputLock, pRspInfo, nRequestID, bIsLast):
 		self.OnRspLockInsert(POINTER(CThostFtdcInputLockField).from_param(pInputLock).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspBatchOrderAction(self, pInputBatchOrderAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspBatchOrderAction(POINTER(CThostFtdcInputBatchOrderActionField).from_param(pInputBatchOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspCombActionInsert(self, pInputCombAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspCombActionInsert(POINTER(CThostFtdcInputCombActionField).from_param(pInputCombAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryOrder(self, pOrder, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryOrder(POINTER(CThostFtdcOrderField).from_param(pOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryTrade(self, pTrade, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryTrade(POINTER(CThostFtdcTradeField).from_param(pTrade).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInvestorPosition(self, pInvestorPosition, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInvestorPosition(POINTER(CThostFtdcInvestorPositionField).from_param(pInvestorPosition).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryTradingAccount(self, pTradingAccount, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryTradingAccount(POINTER(CThostFtdcTradingAccountField).from_param(pTradingAccount).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInvestor(self, pInvestor, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInvestor(POINTER(CThostFtdcInvestorField).from_param(pInvestor).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryTradingCode(self, pTradingCode, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryTradingCode(POINTER(CThostFtdcTradingCodeField).from_param(pTradingCode).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInstrumentMarginRate(self, pInstrumentMarginRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInstrumentMarginRate(POINTER(CThostFtdcInstrumentMarginRateField).from_param(pInstrumentMarginRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInstrumentCommissionRate(self, pInstrumentCommissionRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInstrumentCommissionRate(POINTER(CThostFtdcInstrumentCommissionRateField).from_param(pInstrumentCommissionRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryExchange(self, pExchange, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryExchange(POINTER(CThostFtdcExchangeField).from_param(pExchange).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryProduct(self, pProduct, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryProduct(POINTER(CThostFtdcProductField).from_param(pProduct).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInstrument(self, pInstrument, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInstrument(POINTER(CThostFtdcInstrumentField).from_param(pInstrument).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryDepthMarketData(self, pDepthMarketData, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryDepthMarketData(POINTER(CThostFtdcDepthMarketDataField).from_param(pDepthMarketData).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQrySettlementInfo(self, pSettlementInfo, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQrySettlementInfo(POINTER(CThostFtdcSettlementInfoField).from_param(pSettlementInfo).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryTransferBank(self, pTransferBank, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryTransferBank(POINTER(CThostFtdcTransferBankField).from_param(pTransferBank).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInvestorPositionDetail(self, pInvestorPositionDetail, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInvestorPositionDetail(POINTER(CThostFtdcInvestorPositionDetailField).from_param(pInvestorPositionDetail).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryNotice(self, pNotice, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryNotice(POINTER(CThostFtdcNoticeField).from_param(pNotice).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQrySettlementInfoConfirm(self, pSettlementInfoConfirm, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQrySettlementInfoConfirm(POINTER(CThostFtdcSettlementInfoConfirmField).from_param(pSettlementInfoConfirm).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInvestorPositionCombineDetail(self, pInvestorPositionCombineDetail, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInvestorPositionCombineDetail(POINTER(CThostFtdcInvestorPositionCombineDetailField).from_param(pInvestorPositionCombineDetail).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryCFMMCTradingAccountKey(self, pCFMMCTradingAccountKey, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryCFMMCTradingAccountKey(POINTER(CThostFtdcCFMMCTradingAccountKeyField).from_param(pCFMMCTradingAccountKey).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryEWarrantOffset(self, pEWarrantOffset, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryEWarrantOffset(POINTER(CThostFtdcEWarrantOffsetField).from_param(pEWarrantOffset).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInvestorProductGroupMargin(self, pInvestorProductGroupMargin, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInvestorProductGroupMargin(POINTER(CThostFtdcInvestorProductGroupMarginField).from_param(pInvestorProductGroupMargin).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryExchangeMarginRate(self, pExchangeMarginRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryExchangeMarginRate(POINTER(CThostFtdcExchangeMarginRateField).from_param(pExchangeMarginRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryExchangeMarginRateAdjust(self, pExchangeMarginRateAdjust, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryExchangeMarginRateAdjust(POINTER(CThostFtdcExchangeMarginRateAdjustField).from_param(pExchangeMarginRateAdjust).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryExchangeRate(self, pExchangeRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryExchangeRate(POINTER(CThostFtdcExchangeRateField).from_param(pExchangeRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQrySecAgentACIDMap(self, pSecAgentACIDMap, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQrySecAgentACIDMap(POINTER(CThostFtdcSecAgentACIDMapField).from_param(pSecAgentACIDMap).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryProductExchRate(self, pProductExchRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryProductExchRate(POINTER(CThostFtdcProductExchRateField).from_param(pProductExchRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryProductGroup(self, pProductGroup, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryProductGroup(POINTER(CThostFtdcProductGroupField).from_param(pProductGroup).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryMMInstrumentCommissionRate(self, pMMInstrumentCommissionRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryMMInstrumentCommissionRate(POINTER(CThostFtdcMMInstrumentCommissionRateField).from_param(pMMInstrumentCommissionRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryMMOptionInstrCommRate(self, pMMOptionInstrCommRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryMMOptionInstrCommRate(POINTER(CThostFtdcMMOptionInstrCommRateField).from_param(pMMOptionInstrCommRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInstrumentOrderCommRate(self, pInstrumentOrderCommRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInstrumentOrderCommRate(POINTER(CThostFtdcInstrumentOrderCommRateField).from_param(pInstrumentOrderCommRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryOptionInstrTradeCost(self, pOptionInstrTradeCost, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryOptionInstrTradeCost(POINTER(CThostFtdcOptionInstrTradeCostField).from_param(pOptionInstrTradeCost).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryOptionInstrCommRate(self, pOptionInstrCommRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryOptionInstrCommRate(POINTER(CThostFtdcOptionInstrCommRateField).from_param(pOptionInstrCommRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryExecOrder(self, pExecOrder, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryExecOrder(POINTER(CThostFtdcExecOrderField).from_param(pExecOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryForQuote(self, pForQuote, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryForQuote(POINTER(CThostFtdcForQuoteField).from_param(pForQuote).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryQuote(self, pQuote, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryQuote(POINTER(CThostFtdcQuoteField).from_param(pQuote).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryLock(self, pLock, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryLock(POINTER(CThostFtdcLockField).from_param(pLock).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryLockPosition(self, pLockPosition, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryLockPosition(POINTER(CThostFtdcLockPositionField).from_param(pLockPosition).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryETFOptionInstrCommRate(self, pETFOptionInstrCommRate, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryETFOptionInstrCommRate(POINTER(CThostFtdcETFOptionInstrCommRateField).from_param(pETFOptionInstrCommRate).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryInvestorLevel(self, pInvestorLevel, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryInvestorLevel(POINTER(CThostFtdcInvestorLevelField).from_param(pInvestorLevel).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryExecFreeze(self, pExecFreeze, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryExecFreeze(POINTER(CThostFtdcExecFreezeField).from_param(pExecFreeze).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryCombInstrumentGuard(self, pCombInstrumentGuard, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryCombInstrumentGuard(POINTER(CThostFtdcCombInstrumentGuardField).from_param(pCombInstrumentGuard).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryCombAction(self, pCombAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryCombAction(POINTER(CThostFtdcCombActionField).from_param(pCombAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryTransferSerial(self, pTransferSerial, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryTransferSerial(POINTER(CThostFtdcTransferSerialField).from_param(pTransferSerial).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryAccountregister(self, pAccountregister, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryAccountregister(POINTER(CThostFtdcAccountregisterField).from_param(pAccountregister).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspError(self, pRspInfo, nRequestID, bIsLast):
 		self.OnRspError(POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRtnOrder(self, pOrder):
 		self.OnRtnOrder(POINTER(CThostFtdcOrderField).from_param(pOrder).contents.clone())
-	
+
 	def __OnRtnTrade(self, pTrade):
 		self.OnRtnTrade(POINTER(CThostFtdcTradeField).from_param(pTrade).contents.clone())
-	
+
 	def __OnErrRtnOrderInsert(self, pInputOrder, pRspInfo):
 		self.OnErrRtnOrderInsert(POINTER(CThostFtdcInputOrderField).from_param(pInputOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnOrderAction(self, pOrderAction, pRspInfo):
 		self.OnErrRtnOrderAction(POINTER(CThostFtdcOrderActionField).from_param(pOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnRtnInstrumentStatus(self, pInstrumentStatus):
 		self.OnRtnInstrumentStatus(POINTER(CThostFtdcInstrumentStatusField).from_param(pInstrumentStatus).contents.clone())
-	
+
 	def __OnRtnBulletin(self, pBulletin):
 		self.OnRtnBulletin(POINTER(CThostFtdcBulletinField).from_param(pBulletin).contents.clone())
-	
+
 	def __OnRtnTradingNotice(self, pTradingNoticeInfo):
 		self.OnRtnTradingNotice(POINTER(CThostFtdcTradingNoticeInfoField).from_param(pTradingNoticeInfo).contents.clone())
-	
+
 	def __OnRtnErrorConditionalOrder(self, pErrorConditionalOrder):
 		self.OnRtnErrorConditionalOrder(POINTER(CThostFtdcErrorConditionalOrderField).from_param(pErrorConditionalOrder).contents.clone())
-	
+
 	def __OnRtnExecOrder(self, pExecOrder):
 		self.OnRtnExecOrder(POINTER(CThostFtdcExecOrderField).from_param(pExecOrder).contents.clone())
-	
+
 	def __OnErrRtnExecOrderInsert(self, pInputExecOrder, pRspInfo):
 		self.OnErrRtnExecOrderInsert(POINTER(CThostFtdcInputExecOrderField).from_param(pInputExecOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnExecOrderAction(self, pExecOrderAction, pRspInfo):
 		self.OnErrRtnExecOrderAction(POINTER(CThostFtdcExecOrderActionField).from_param(pExecOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnForQuoteInsert(self, pInputForQuote, pRspInfo):
 		self.OnErrRtnForQuoteInsert(POINTER(CThostFtdcInputForQuoteField).from_param(pInputForQuote).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnRtnQuote(self, pQuote):
 		self.OnRtnQuote(POINTER(CThostFtdcQuoteField).from_param(pQuote).contents.clone())
-	
+
 	def __OnErrRtnQuoteInsert(self, pInputQuote, pRspInfo):
 		self.OnErrRtnQuoteInsert(POINTER(CThostFtdcInputQuoteField).from_param(pInputQuote).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnQuoteAction(self, pQuoteAction, pRspInfo):
 		self.OnErrRtnQuoteAction(POINTER(CThostFtdcQuoteActionField).from_param(pQuoteAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnRtnForQuoteRsp(self, pForQuoteRsp):
 		self.OnRtnForQuoteRsp(POINTER(CThostFtdcForQuoteRspField).from_param(pForQuoteRsp).contents.clone())
-	
+
 	def __OnRtnCFMMCTradingAccountToken(self, pCFMMCTradingAccountToken):
 		self.OnRtnCFMMCTradingAccountToken(POINTER(CThostFtdcCFMMCTradingAccountTokenField).from_param(pCFMMCTradingAccountToken).contents.clone())
-	
+
 	def __OnRtnLock(self, pLock):
 		self.OnRtnLock(POINTER(CThostFtdcLockField).from_param(pLock).contents.clone())
-	
+
 	def __OnErrRtnLockInsert(self, pInputLock, pRspInfo):
 		self.OnErrRtnLockInsert(POINTER(CThostFtdcInputLockField).from_param(pInputLock).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnBatchOrderAction(self, pBatchOrderAction, pRspInfo):
 		self.OnErrRtnBatchOrderAction(POINTER(CThostFtdcBatchOrderActionField).from_param(pBatchOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnRtnCombAction(self, pCombAction):
 		self.OnRtnCombAction(POINTER(CThostFtdcCombActionField).from_param(pCombAction).contents.clone())
-	
+
 	def __OnErrRtnCombActionInsert(self, pInputCombAction, pRspInfo):
 		self.OnErrRtnCombActionInsert(POINTER(CThostFtdcInputCombActionField).from_param(pInputCombAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnRspQryContractBank(self, pContractBank, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryContractBank(POINTER(CThostFtdcContractBankField).from_param(pContractBank).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryParkedOrder(self, pParkedOrder, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryParkedOrder(POINTER(CThostFtdcParkedOrderField).from_param(pParkedOrder).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryParkedOrderAction(self, pParkedOrderAction, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryParkedOrderAction(POINTER(CThostFtdcParkedOrderActionField).from_param(pParkedOrderAction).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryTradingNotice(self, pTradingNotice, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryTradingNotice(POINTER(CThostFtdcTradingNoticeField).from_param(pTradingNotice).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryBrokerTradingParams(self, pBrokerTradingParams, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryBrokerTradingParams(POINTER(CThostFtdcBrokerTradingParamsField).from_param(pBrokerTradingParams).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQryBrokerTradingAlgos(self, pBrokerTradingAlgos, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQryBrokerTradingAlgos(POINTER(CThostFtdcBrokerTradingAlgosField).from_param(pBrokerTradingAlgos).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQueryCFMMCTradingAccountToken(self, pQueryCFMMCTradingAccountToken, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQueryCFMMCTradingAccountToken(POINTER(CThostFtdcQueryCFMMCTradingAccountTokenField).from_param(pQueryCFMMCTradingAccountToken).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRtnFromBankToFutureByBank(self, pRspTransfer):
 		self.OnRtnFromBankToFutureByBank(POINTER(CThostFtdcRspTransferField).from_param(pRspTransfer).contents.clone())
-	
+
 	def __OnRtnFromFutureToBankByBank(self, pRspTransfer):
 		self.OnRtnFromFutureToBankByBank(POINTER(CThostFtdcRspTransferField).from_param(pRspTransfer).contents.clone())
-	
+
 	def __OnRtnRepealFromBankToFutureByBank(self, pRspRepeal):
 		self.OnRtnRepealFromBankToFutureByBank(POINTER(CThostFtdcRspRepealField).from_param(pRspRepeal).contents.clone())
-	
+
 	def __OnRtnRepealFromFutureToBankByBank(self, pRspRepeal):
 		self.OnRtnRepealFromFutureToBankByBank(POINTER(CThostFtdcRspRepealField).from_param(pRspRepeal).contents.clone())
-	
+
 	def __OnRtnFromBankToFutureByFuture(self, pRspTransfer):
 		self.OnRtnFromBankToFutureByFuture(POINTER(CThostFtdcRspTransferField).from_param(pRspTransfer).contents.clone())
-	
+
 	def __OnRtnFromFutureToBankByFuture(self, pRspTransfer):
 		self.OnRtnFromFutureToBankByFuture(POINTER(CThostFtdcRspTransferField).from_param(pRspTransfer).contents.clone())
-	
+
 	def __OnRtnRepealFromBankToFutureByFutureManual(self, pRspRepeal):
 		self.OnRtnRepealFromBankToFutureByFutureManual(POINTER(CThostFtdcRspRepealField).from_param(pRspRepeal).contents.clone())
-	
+
 	def __OnRtnRepealFromFutureToBankByFutureManual(self, pRspRepeal):
 		self.OnRtnRepealFromFutureToBankByFutureManual(POINTER(CThostFtdcRspRepealField).from_param(pRspRepeal).contents.clone())
-	
+
 	def __OnRtnQueryBankBalanceByFuture(self, pNotifyQueryAccount):
 		self.OnRtnQueryBankBalanceByFuture(POINTER(CThostFtdcNotifyQueryAccountField).from_param(pNotifyQueryAccount).contents.clone())
-	
+
 	def __OnErrRtnBankToFutureByFuture(self, pReqTransfer, pRspInfo):
 		self.OnErrRtnBankToFutureByFuture(POINTER(CThostFtdcReqTransferField).from_param(pReqTransfer).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnFutureToBankByFuture(self, pReqTransfer, pRspInfo):
 		self.OnErrRtnFutureToBankByFuture(POINTER(CThostFtdcReqTransferField).from_param(pReqTransfer).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnRepealBankToFutureByFutureManual(self, pReqRepeal, pRspInfo):
 		self.OnErrRtnRepealBankToFutureByFutureManual(POINTER(CThostFtdcReqRepealField).from_param(pReqRepeal).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnRepealFutureToBankByFutureManual(self, pReqRepeal, pRspInfo):
 		self.OnErrRtnRepealFutureToBankByFutureManual(POINTER(CThostFtdcReqRepealField).from_param(pReqRepeal).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnErrRtnQueryBankBalanceByFuture(self, pReqQueryAccount, pRspInfo):
 		self.OnErrRtnQueryBankBalanceByFuture(POINTER(CThostFtdcReqQueryAccountField).from_param(pReqQueryAccount).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone())
-	
+
 	def __OnRtnRepealFromBankToFutureByFuture(self, pRspRepeal):
 		self.OnRtnRepealFromBankToFutureByFuture(POINTER(CThostFtdcRspRepealField).from_param(pRspRepeal).contents.clone())
-	
+
 	def __OnRtnRepealFromFutureToBankByFuture(self, pRspRepeal):
 		self.OnRtnRepealFromFutureToBankByFuture(POINTER(CThostFtdcRspRepealField).from_param(pRspRepeal).contents.clone())
-	
+
 	def __OnRspFromBankToFutureByFuture(self, pReqTransfer, pRspInfo, nRequestID, bIsLast):
 		self.OnRspFromBankToFutureByFuture(POINTER(CThostFtdcReqTransferField).from_param(pReqTransfer).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspFromFutureToBankByFuture(self, pReqTransfer, pRspInfo, nRequestID, bIsLast):
 		self.OnRspFromFutureToBankByFuture(POINTER(CThostFtdcReqTransferField).from_param(pReqTransfer).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRspQueryBankAccountMoneyByFuture(self, pReqQueryAccount, pRspInfo, nRequestID, bIsLast):
 		self.OnRspQueryBankAccountMoneyByFuture(POINTER(CThostFtdcReqQueryAccountField).from_param(pReqQueryAccount).contents.clone(), POINTER(CThostFtdcRspInfoField).from_param(pRspInfo).contents.clone(), nRequestID, bIsLast)
-	
+
 	def __OnRtnOpenAccountByBank(self, pOpenAccount):
 		self.OnRtnOpenAccountByBank(POINTER(CThostFtdcOpenAccountField).from_param(pOpenAccount).contents.clone())
-	
+
 	def __OnRtnCancelAccountByBank(self, pCancelAccount):
 		self.OnRtnCancelAccountByBank(POINTER(CThostFtdcCancelAccountField).from_param(pCancelAccount).contents.clone())
-	
+
 	def __OnRtnChangeAccountByBank(self, pChangeAccount):
 		self.OnRtnChangeAccountByBank(POINTER(CThostFtdcChangeAccountField).from_param(pChangeAccount).contents.clone())
-	
+
 	def OnFrontConnected(self):
 		print('OnFrontConnected:')
 
-	def OnFrontDisconnected(self, nReason = int):
+	def OnFrontDisconnected(self, nReason=int):
 		print('OnFrontDisconnected:, nReason = int')
 		print(nReason)
 
-	def OnHeartBeatWarning(self, nTimeLapse = int):
+	def OnHeartBeatWarning(self, nTimeLapse=int):
 		print('OnHeartBeatWarning:, nTimeLapse = int')
 		print(nTimeLapse)
 
-	def OnRspAuthenticate(self, pRspAuthenticateField = CThostFtdcRspAuthenticateField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
+
+	def OnRspAuthenticate(self, pRspAuthenticateField=CThostFtdcRspAuthenticateField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool):
 		print('OnRspAuthenticate:, pRspAuthenticateField = CThostFtdcRspAuthenticateField, pRspInfo = CThostFtdcRspInfoField, nRequestID = int, bIsLast = bool')
 		print(pRspAuthenticateField)
 		print(pRspInfo)
@@ -1908,22 +1918,22 @@ class Trade:
 
 	def Release(self):
 		self.h.Release(self.api)
-			
+		
 	def Init(self):
 		self.h.Init(self.api)
-			
+		
 	def Join(self):
 		self.h.Join(self.api)
-			
+		
 	def GetTradingDay(self):
 		self.h.GetTradingDay(self.api)
-			
+		
 	def RegisterFront(self, pszFrontAddress):
 		self.h.RegisterFront(self.api, bytes(pszFrontAddress, encoding='ascii'))
-			
+		
 	def RegisterNameServer(self, pszNsAddress):
 		self.h.RegisterNameServer(self.api, bytes(pszNsAddress, encoding='ascii'))
-			
+		
 	def RegisterFensUserInfo(self, BrokerID = '', UserID = '', LoginMode = ''):
 		struc = CThostFtdcFensUserInfoField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -1932,16 +1942,16 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.RegisterFensUserInfo(self.api, byref(struc), self.nRequestID)
-			
+		
 	def RegisterSpi(self, pSpi):
 		self.h.RegisterSpi(self.api, pSpi)
-			
+		
 	def SubscribePrivateTopic(self, nResumeType):
 		self.h.SubscribePrivateTopic(self.api, nResumeType)
-			
+		
 	def SubscribePublicTopic(self, nResumeType):
 		self.h.SubscribePublicTopic(self.api, nResumeType)
-			
+		
 	def ReqAuthenticate(self, BrokerID = '', UserID = '', UserProductInfo = '', AuthCode = ''):
 		struc = CThostFtdcReqAuthenticateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -1951,7 +1961,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqAuthenticate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqUserLogin(self, TradingDay = '', BrokerID = '', UserID = '', Password = '', UserProductInfo = '', InterfaceProductInfo = '', ProtocolInfo = '', MacAddress = '', OneTimePassword = '', ClientIPAddress = '', LoginRemark = ''):
 		struc = CThostFtdcReqUserLoginField()
 		struc.TradingDay = bytes(TradingDay, encoding='ascii')
@@ -1968,7 +1978,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqUserLogin(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqUserLogout(self, BrokerID = '', UserID = ''):
 		struc = CThostFtdcUserLogoutField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -1976,7 +1986,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqUserLogout(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqUserPasswordUpdate(self, BrokerID = '', UserID = '', OldPassword = '', NewPassword = ''):
 		struc = CThostFtdcUserPasswordUpdateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -1986,7 +1996,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqUserPasswordUpdate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqTradingAccountPasswordUpdate(self, BrokerID = '', AccountID = '', OldPassword = '', NewPassword = '', CurrencyID = ''):
 		struc = CThostFtdcTradingAccountPasswordUpdateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -1997,7 +2007,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqTradingAccountPasswordUpdate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqOrderInsert(self, BrokerID = '', InvestorID = '', InstrumentID = '', OrderRef = '', UserID = '', OrderPriceType = '', Direction = '', CombOffsetFlag = '', CombHedgeFlag = '', LimitPrice = 0, VolumeTotalOriginal = 0, TimeCondition = '', GTDDate = '', VolumeCondition = '', MinVolume = 0, ContingentCondition = '', StopPrice = 0, ForceCloseReason = '', IsAutoSuspend = 0, BusinessUnit = '', RequestID = 0, UserForceClose = 0, IsSwapOrder = 0, ExchangeID = '', InvestUnitID = '', AccountID = '', CurrencyID = '', ClientID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputOrderField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2033,7 +2043,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqOrderInsert(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqParkedOrderInsert(self, BrokerID = '', InvestorID = '', InstrumentID = '', OrderRef = '', UserID = '', OrderPriceType = '', Direction = '', CombOffsetFlag = '', CombHedgeFlag = '', LimitPrice = 0, VolumeTotalOriginal = 0, TimeCondition = '', GTDDate = '', VolumeCondition = '', MinVolume = 0, ContingentCondition = '', StopPrice = 0, ForceCloseReason = '', IsAutoSuspend = 0, BusinessUnit = '', RequestID = 0, UserForceClose = 0, ExchangeID = '', ParkedOrderID = '', UserType = '', Status = '', ErrorID = 0, ErrorMsg = '', IsSwapOrder = 0, AccountID = '', CurrencyID = '', ClientID = '', InvestUnitID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcParkedOrderField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2074,7 +2084,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqParkedOrderInsert(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqParkedOrderAction(self, BrokerID = '', InvestorID = '', OrderActionRef = 0, OrderRef = '', RequestID = 0, FrontID = 0, SessionID = 0, ExchangeID = '', OrderSysID = '', ActionFlag = '', LimitPrice = 0, VolumeChange = 0, UserID = '', InstrumentID = '', ParkedOrderActionID = '', UserType = '', Status = '', ErrorID = 0, ErrorMsg = '', InvestUnitID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcParkedOrderActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2102,7 +2112,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqParkedOrderAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqOrderAction(self, BrokerID = '', InvestorID = '', OrderActionRef = 0, OrderRef = '', RequestID = 0, FrontID = 0, SessionID = 0, ExchangeID = '', OrderSysID = '', ActionFlag = '', LimitPrice = 0, VolumeChange = 0, UserID = '', InstrumentID = '', InvestUnitID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputOrderActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2125,7 +2135,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqOrderAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQueryMaxOrderVolume(self, BrokerID = '', InvestorID = '', InstrumentID = '', Direction = '', OffsetFlag = '', HedgeFlag = '', MaxVolume = 0, ExchangeID = ''):
 		struc = CThostFtdcQueryMaxOrderVolumeField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2139,7 +2149,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQueryMaxOrderVolume(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqSettlementInfoConfirm(self, BrokerID = '', InvestorID = '', ConfirmDate = '', ConfirmTime = ''):
 		struc = CThostFtdcSettlementInfoConfirmField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2149,7 +2159,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqSettlementInfoConfirm(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqRemoveParkedOrder(self, BrokerID = '', InvestorID = '', ParkedOrderID = ''):
 		struc = CThostFtdcRemoveParkedOrderField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2158,7 +2168,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqRemoveParkedOrder(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqRemoveParkedOrderAction(self, BrokerID = '', InvestorID = '', ParkedOrderActionID = ''):
 		struc = CThostFtdcRemoveParkedOrderActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2167,7 +2177,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqRemoveParkedOrderAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqExecOrderInsert(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExecOrderRef = '', UserID = '', Volume = 0, RequestID = 0, BusinessUnit = '', OffsetFlag = '', HedgeFlag = '', ActionType = '', PosiDirection = '', ReservePositionFlag = '', CloseFlag = '', ExchangeID = '', InvestUnitID = '', AccountID = '', CurrencyID = '', ClientID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputExecOrderField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2194,7 +2204,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqExecOrderInsert(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqExecOrderAction(self, BrokerID = '', InvestorID = '', ExecOrderActionRef = 0, ExecOrderRef = '', RequestID = 0, FrontID = 0, SessionID = 0, ExchangeID = '', ExecOrderSysID = '', ActionFlag = '', UserID = '', InstrumentID = '', InvestUnitID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputExecOrderActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2215,7 +2225,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqExecOrderAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqForQuoteInsert(self, BrokerID = '', InvestorID = '', InstrumentID = '', ForQuoteRef = '', UserID = '', ExchangeID = '', InvestUnitID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputForQuoteField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2230,7 +2240,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqForQuoteInsert(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQuoteInsert(self, BrokerID = '', InvestorID = '', InstrumentID = '', QuoteRef = '', UserID = '', AskPrice = 0, BidPrice = 0, AskVolume = 0, BidVolume = 0, RequestID = 0, BusinessUnit = '', AskOffsetFlag = '', BidOffsetFlag = '', AskHedgeFlag = '', BidHedgeFlag = '', AskOrderRef = '', BidOrderRef = '', ForQuoteSysID = '', ExchangeID = '', InvestUnitID = '', ClientID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputQuoteField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2259,7 +2269,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQuoteInsert(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQuoteAction(self, BrokerID = '', InvestorID = '', QuoteActionRef = 0, QuoteRef = '', RequestID = 0, FrontID = 0, SessionID = 0, ExchangeID = '', QuoteSysID = '', ActionFlag = '', UserID = '', InstrumentID = '', InvestUnitID = '', ClientID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputQuoteActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2281,7 +2291,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQuoteAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqLockInsert(self, BrokerID = '', InvestorID = '', InstrumentID = '', LockRef = '', UserID = '', Volume = 0, RequestID = 0, BusinessUnit = '', LockType = '', ExchangeID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputLockField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2299,7 +2309,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqLockInsert(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqBatchOrderAction(self, BrokerID = '', InvestorID = '', OrderActionRef = 0, RequestID = 0, FrontID = 0, SessionID = 0, ExchangeID = '', UserID = '', InvestUnitID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputBatchOrderActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2316,7 +2326,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqBatchOrderAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqCombActionInsert(self, BrokerID = '', InvestorID = '', InstrumentID = '', CombActionRef = '', UserID = '', Direction = '', Volume = 0, CombDirection = '', HedgeFlag = '', ExchangeID = '', IPAddress = '', MacAddress = ''):
 		struc = CThostFtdcInputCombActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2334,7 +2344,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqCombActionInsert(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryOrder(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = '', OrderSysID = '', InsertTimeStart = '', InsertTimeEnd = ''):
 		struc = CThostFtdcQryOrderField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2347,7 +2357,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryOrder(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryTrade(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = '', TradeID = '', TradeTimeStart = '', TradeTimeEnd = ''):
 		struc = CThostFtdcQryTradeField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2360,7 +2370,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryTrade(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInvestorPosition(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryInvestorPositionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2370,7 +2380,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInvestorPosition(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryTradingAccount(self, BrokerID = '', InvestorID = '', CurrencyID = '', BizType = ''):
 		struc = CThostFtdcQryTradingAccountField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2380,7 +2390,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryTradingAccount(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInvestor(self, BrokerID = '', InvestorID = ''):
 		struc = CThostFtdcQryInvestorField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2388,7 +2398,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInvestor(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryTradingCode(self, BrokerID = '', InvestorID = '', ExchangeID = '', ClientID = '', ClientIDType = ''):
 		struc = CThostFtdcQryTradingCodeField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2399,7 +2409,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryTradingCode(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInstrumentMarginRate(self, BrokerID = '', InvestorID = '', InstrumentID = '', HedgeFlag = ''):
 		struc = CThostFtdcQryInstrumentMarginRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2409,7 +2419,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInstrumentMarginRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInstrumentCommissionRate(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryInstrumentCommissionRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2419,14 +2429,14 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInstrumentCommissionRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryExchange(self, ExchangeID = ''):
 		struc = CThostFtdcQryExchangeField()
 		struc.ExchangeID = bytes(ExchangeID, encoding='ascii')
 
 		self.nRequestID += 1
 		self.h.ReqQryExchange(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryProduct(self, ProductID = '', ProductClass = '', ExchangeID = ''):
 		struc = CThostFtdcQryProductField()
 		struc.ProductID = bytes(ProductID, encoding='ascii')
@@ -2435,7 +2445,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryProduct(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInstrument(self, InstrumentID = '', ExchangeID = '', ExchangeInstID = '', ProductID = ''):
 		struc = CThostFtdcQryInstrumentField()
 		struc.InstrumentID = bytes(InstrumentID, encoding='ascii')
@@ -2445,7 +2455,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInstrument(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryDepthMarketData(self, InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryDepthMarketDataField()
 		struc.InstrumentID = bytes(InstrumentID, encoding='ascii')
@@ -2453,7 +2463,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryDepthMarketData(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQrySettlementInfo(self, BrokerID = '', InvestorID = '', TradingDay = ''):
 		struc = CThostFtdcQrySettlementInfoField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2462,7 +2472,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQrySettlementInfo(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryTransferBank(self, BankID = '', BankBrchID = ''):
 		struc = CThostFtdcQryTransferBankField()
 		struc.BankID = bytes(BankID, encoding='ascii')
@@ -2470,7 +2480,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryTransferBank(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInvestorPositionDetail(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryInvestorPositionDetailField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2480,14 +2490,14 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInvestorPositionDetail(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryNotice(self, BrokerID = ''):
 		struc = CThostFtdcQryNoticeField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
 
 		self.nRequestID += 1
 		self.h.ReqQryNotice(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQrySettlementInfoConfirm(self, BrokerID = '', InvestorID = ''):
 		struc = CThostFtdcQrySettlementInfoConfirmField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2495,7 +2505,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQrySettlementInfoConfirm(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInvestorPositionCombineDetail(self, BrokerID = '', InvestorID = '', CombInstrumentID = ''):
 		struc = CThostFtdcQryInvestorPositionCombineDetailField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2504,7 +2514,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInvestorPositionCombineDetail(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryCFMMCTradingAccountKey(self, BrokerID = '', InvestorID = ''):
 		struc = CThostFtdcQryCFMMCTradingAccountKeyField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2512,7 +2522,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryCFMMCTradingAccountKey(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryEWarrantOffset(self, BrokerID = '', InvestorID = '', ExchangeID = '', InstrumentID = ''):
 		struc = CThostFtdcQryEWarrantOffsetField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2522,7 +2532,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryEWarrantOffset(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInvestorProductGroupMargin(self, BrokerID = '', InvestorID = '', ProductGroupID = '', HedgeFlag = ''):
 		struc = CThostFtdcQryInvestorProductGroupMarginField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2532,7 +2542,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInvestorProductGroupMargin(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryExchangeMarginRate(self, BrokerID = '', InstrumentID = '', HedgeFlag = ''):
 		struc = CThostFtdcQryExchangeMarginRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2541,7 +2551,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryExchangeMarginRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryExchangeMarginRateAdjust(self, BrokerID = '', InstrumentID = '', HedgeFlag = ''):
 		struc = CThostFtdcQryExchangeMarginRateAdjustField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2550,7 +2560,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryExchangeMarginRateAdjust(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryExchangeRate(self, BrokerID = '', FromCurrencyID = '', ToCurrencyID = ''):
 		struc = CThostFtdcQryExchangeRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2559,7 +2569,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryExchangeRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQrySecAgentACIDMap(self, BrokerID = '', UserID = '', AccountID = '', CurrencyID = ''):
 		struc = CThostFtdcQrySecAgentACIDMapField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2569,14 +2579,14 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQrySecAgentACIDMap(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryProductExchRate(self, ProductID = ''):
 		struc = CThostFtdcQryProductExchRateField()
 		struc.ProductID = bytes(ProductID, encoding='ascii')
 
 		self.nRequestID += 1
 		self.h.ReqQryProductExchRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryProductGroup(self, ProductID = '', ExchangeID = ''):
 		struc = CThostFtdcQryProductGroupField()
 		struc.ProductID = bytes(ProductID, encoding='ascii')
@@ -2584,7 +2594,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryProductGroup(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryMMInstrumentCommissionRate(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryMMInstrumentCommissionRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2594,7 +2604,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryMMInstrumentCommissionRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryMMOptionInstrCommRate(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryMMOptionInstrCommRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2604,7 +2614,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryMMOptionInstrCommRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInstrumentOrderCommRate(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryInstrumentOrderCommRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2614,7 +2624,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInstrumentOrderCommRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryOptionInstrTradeCost(self, BrokerID = '', InvestorID = '', InstrumentID = '', HedgeFlag = '', InputPrice = 0, UnderlyingPrice = 0, ExchangeID = ''):
 		struc = CThostFtdcQryOptionInstrTradeCostField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2627,7 +2637,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryOptionInstrTradeCost(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryOptionInstrCommRate(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryOptionInstrCommRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2637,7 +2647,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryOptionInstrCommRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryExecOrder(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = '', ExecOrderSysID = '', InsertTimeStart = '', InsertTimeEnd = ''):
 		struc = CThostFtdcQryExecOrderField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2650,7 +2660,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryExecOrder(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryForQuote(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = '', InsertTimeStart = '', InsertTimeEnd = ''):
 		struc = CThostFtdcQryForQuoteField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2662,7 +2672,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryForQuote(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryQuote(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = '', QuoteSysID = '', InsertTimeStart = '', InsertTimeEnd = ''):
 		struc = CThostFtdcQryQuoteField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2675,7 +2685,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryQuote(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryLock(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = '', LockSysID = '', InsertTimeStart = '', InsertTimeEnd = ''):
 		struc = CThostFtdcQryLockField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2688,7 +2698,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryLock(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryLockPosition(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryLockPositionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2698,7 +2708,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryLockPosition(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryETFOptionInstrCommRate(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryETFOptionInstrCommRateField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2708,7 +2718,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryETFOptionInstrCommRate(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryInvestorLevel(self, BrokerID = '', InvestorID = '', ExchangeID = ''):
 		struc = CThostFtdcQryInvestorLevelField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2717,7 +2727,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryInvestorLevel(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryExecFreeze(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryExecFreezeField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2727,7 +2737,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryExecFreeze(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryCombInstrumentGuard(self, BrokerID = '', InstrumentID = ''):
 		struc = CThostFtdcQryCombInstrumentGuardField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2735,7 +2745,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryCombInstrumentGuard(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryCombAction(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryCombActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2745,7 +2755,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryCombAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryTransferSerial(self, BrokerID = '', AccountID = '', BankID = '', CurrencyID = ''):
 		struc = CThostFtdcQryTransferSerialField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2755,7 +2765,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryTransferSerial(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryAccountregister(self, BrokerID = '', AccountID = '', BankID = '', BankBranchID = '', CurrencyID = ''):
 		struc = CThostFtdcQryAccountregisterField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2766,7 +2776,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryAccountregister(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryContractBank(self, BrokerID = '', BankID = '', BankBrchID = ''):
 		struc = CThostFtdcQryContractBankField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2775,7 +2785,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryContractBank(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryParkedOrder(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryParkedOrderField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2785,7 +2795,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryParkedOrder(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryParkedOrderAction(self, BrokerID = '', InvestorID = '', InstrumentID = '', ExchangeID = ''):
 		struc = CThostFtdcQryParkedOrderActionField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2795,7 +2805,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryParkedOrderAction(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryTradingNotice(self, BrokerID = '', InvestorID = ''):
 		struc = CThostFtdcQryTradingNoticeField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2803,7 +2813,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryTradingNotice(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryBrokerTradingParams(self, BrokerID = '', InvestorID = '', CurrencyID = ''):
 		struc = CThostFtdcQryBrokerTradingParamsField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2812,7 +2822,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryBrokerTradingParams(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQryBrokerTradingAlgos(self, BrokerID = '', ExchangeID = '', InstrumentID = ''):
 		struc = CThostFtdcQryBrokerTradingAlgosField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2821,7 +2831,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQryBrokerTradingAlgos(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQueryCFMMCTradingAccountToken(self, BrokerID = '', InvestorID = ''):
 		struc = CThostFtdcQueryCFMMCTradingAccountTokenField()
 		struc.BrokerID = bytes(BrokerID, encoding='ascii')
@@ -2829,7 +2839,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqQueryCFMMCTradingAccountToken(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqFromBankToFutureByFuture(self, TradeCode = '', BankID = '', BankBranchID = '', BrokerID = '', BrokerBranchID = '', TradeDate = '', TradeTime = '', BankSerial = '', TradingDay = '', PlateSerial = 0, LastFragment = '', SessionID = 0, CustomerName = '', IdCardType = '', IdentifiedCardNo = '', CustType = '', BankAccount = '', BankPassWord = '', AccountID = '', Password = '', InstallID = 0, FutureSerial = 0, UserID = '', VerifyCertNoFlag = '', CurrencyID = '', TradeAmount = 0, FutureFetchAmount = 0, FeePayFlag = '', CustFee = 0, BrokerFee = 0, Message = '', Digest = '', BankAccType = '', DeviceID = '', BankSecuAccType = '', BrokerIDByBank = '', BankSecuAcc = '', BankPwdFlag = '', SecuPwdFlag = '', OperNo = '', RequestID = 0, TID = 0, TransferStatus = ''):
 		struc = CThostFtdcReqTransferField()
 		struc.TradeCode = bytes(TradeCode, encoding='ascii')
@@ -2878,7 +2888,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqFromBankToFutureByFuture(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqFromFutureToBankByFuture(self, TradeCode = '', BankID = '', BankBranchID = '', BrokerID = '', BrokerBranchID = '', TradeDate = '', TradeTime = '', BankSerial = '', TradingDay = '', PlateSerial = 0, LastFragment = '', SessionID = 0, CustomerName = '', IdCardType = '', IdentifiedCardNo = '', CustType = '', BankAccount = '', BankPassWord = '', AccountID = '', Password = '', InstallID = 0, FutureSerial = 0, UserID = '', VerifyCertNoFlag = '', CurrencyID = '', TradeAmount = 0, FutureFetchAmount = 0, FeePayFlag = '', CustFee = 0, BrokerFee = 0, Message = '', Digest = '', BankAccType = '', DeviceID = '', BankSecuAccType = '', BrokerIDByBank = '', BankSecuAcc = '', BankPwdFlag = '', SecuPwdFlag = '', OperNo = '', RequestID = 0, TID = 0, TransferStatus = ''):
 		struc = CThostFtdcReqTransferField()
 		struc.TradeCode = bytes(TradeCode, encoding='ascii')
@@ -2927,7 +2937,7 @@ class Trade:
 
 		self.nRequestID += 1
 		self.h.ReqFromFutureToBankByFuture(self.api, byref(struc), self.nRequestID)
-			
+		
 	def ReqQueryBankAccountMoneyByFuture(self, TradeCode = '', BankID = '', BankBranchID = '', BrokerID = '', BrokerBranchID = '', TradeDate = '', TradeTime = '', BankSerial = '', TradingDay = '', PlateSerial = 0, LastFragment = '', SessionID = 0, CustomerName = '', IdCardType = '', IdentifiedCardNo = '', CustType = '', BankAccount = '', BankPassWord = '', AccountID = '', Password = '', FutureSerial = 0, InstallID = 0, UserID = '', VerifyCertNoFlag = '', CurrencyID = '', Digest = '', BankAccType = '', DeviceID = '', BankSecuAccType = '', BrokerIDByBank = '', BankSecuAcc = '', BankPwdFlag = '', SecuPwdFlag = '', OperNo = '', RequestID = 0, TID = 0):
 		struc = CThostFtdcReqQueryAccountField()
 		struc.TradeCode = bytes(TradeCode, encoding='ascii')

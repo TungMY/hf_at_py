@@ -5,20 +5,20 @@ __title__ = ''
 __author__ = 'HaiFeng'
 __mtime__ = '2016/9/23'
 """
-import _thread
 import sys
 import time
+ 
+import _thread
+import py_at.at_struct
+from py_at.QuoteAdapter import QuoteAdapter
+import py_ctp.quote
 
-
-from py_at.adapters.QuoteAdapter import *
-from py_ctp.quote import *
-from py_at.at_struct import *
 
 class CtpQuote(QuoteAdapter):
 	""""""
 	def __init__(self):
 		super().__init__()
-		self.q = Quote()
+		self.q = py_ctp.quote.Quote()
 
 	def ReqConnect(self, pAddress=''):
 		self.q.CreateApi()
