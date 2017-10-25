@@ -11,14 +11,12 @@ import os
 import _thread
 from time import sleep
 
-#from py_ctp.ctp_struct import *
-#from py_ctp.trade import Trade
-#from py_ctp.quote import Quote
-from ctp_struct import *
-from trade import *
-from quote import *
-
+#sys.path.append('..')  #调用父目录下的模块
 sys.path.append(os.path.join(sys.path[0], '..'))  # 调用父目录下的模块
+from py_ctp.ctp_enum import *
+from py_ctp.ctp_struct import *
+from py_ctp.trade import Trade
+from py_ctp.quote import Quote
 
 
 class Test:
@@ -29,7 +27,11 @@ class Test:
         self.req = 0
         self.ordered = False
         self.needAuth = False
-        self.RelogEnable = True
+        self.RelogEnable = False
+        self.frontAddr = ''
+        self.broker = ''
+        self.investor = ''
+        self.pwd = ''
 
     def q_OnFrontConnected(self):
         print('connected')
@@ -177,7 +179,7 @@ class Test:
                 SessionID=pOrder.getSessionID(),
                 ActionFlag=ActionFlagType.Delete)
 
-    def Run(self):
+    def Run(self, front='tcp://180.168.146.187:10000,tcp://180.168.146.187:10010', broker='9999', investor='008105', pwd='1'):
         # CreateApi时会用到log目录,需要在程序目录下创建**而非dll下**
         api = self.t.CreateApi()
         spi = self.t.CreateSpi()
@@ -194,10 +196,10 @@ class Test:
 
         self.t.RegCB()
 
-        self.frontAddr = 'tcp://180.168.146.187:10000,tcp://180.168.146.187:10010'
-        self.broker = '9999'
-        self.investor = '008105'
-        self.pwd = '1'
+        self.frontAddr = front
+        self.broker = broker
+        self.investor = investor
+        self.pwd = pwd
 
         self.t.RegisterFront(self.frontAddr.split(',')[0])
         self.t.SubscribePrivateTopic(nResumeType=2)  # quick
@@ -208,5 +210,8 @@ class Test:
 
 if __name__ == '__main__':
     t = Test()
-    t.Run()
+    if len(sys.argv)==1:
+        t.Run()
+    else:
+        t.Run(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     input()

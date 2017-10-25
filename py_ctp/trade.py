@@ -7,10 +7,10 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/9/13'
 """
 
-from ctp_struct import *
 import os
 import sys
 import platform
+from py_ctp.ctp_struct import *
 
 
 def isWindowsSystem():

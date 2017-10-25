@@ -11,7 +11,7 @@ import os
 import sys
 import platform
 from ctypes import CDLL, cdll, c_void_p, c_char_p, c_int32, CFUNCTYPE, POINTER, c_bool
-from ctp_struct import *
+from py_ctp.ctp_struct import *
 
 
 def isWindowsSystem():

@@ -8,7 +8,7 @@ __mtime__ = '2016/9/13'
 """
 
 from ctypes import *
-import ctp_enum
+from py_ctp.ctp_enum import *
 
 
 class CThostFtdcDisseminationField(Structure):

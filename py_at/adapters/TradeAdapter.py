@@ -6,78 +6,74 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/9/21'
 """
 
-from py_at.at_struct import *
+from at_struct import *
 
 
 class TradeAdapter:
+    def __init__(self):
+        """"""
+        self.BrokerID = ''
+        self.Investor = ''
+        self.Password = ''
 
-	def __init__(self):
-		""""""
-		self.BrokerID = ''
-		self.Investor = ''
-		self.Password = ''
+        self.FrontID = ''
+        self.SessionID = ''
+        self.TradingDay = ''
 
-		self.FrontID = ''
-		self.SessionID = ''
-		self.TradingDay = ''
+        self.DicInstrument = {}
+        self.DicOrderField = {}
+        self.DicTradeField = {}
+        self.DicPositionField = {}
+        self.DicInstrumentStatus = {}
+        self.Account = None
+        self.IsLogin = False
 
-		self.DicInstrument = {}
-		self.DicOrderField = {}
-		self.DicTradeField = {}
-		self.DicPositionField = {}
-		self.DicInstrumentStatus = {}
-		self.Account = None
-		self.IsLogin = False
+    def ReqConnect(self, pAddress=''):
+        pass
 
-	def ReqConnect(self, pAddress=''):
-		pass
+    def ReqUserLogin(self, user='', pwd='', broker=''):
+        pass
 
-	def ReqUserLogin(self, user='', pwd='', broker=''):
-		pass
+    def ReqOrderInsert(self,
+                       pInstrument='',
+                       pDirection=DirectType,
+                       pOffset=OffsetType,
+                       pPrice=0.0,
+                       pVolume=1,
+                       pType=OrderType,
+                       pCustom=0):
+        pass
 
+    def ReqOrderAction(self, OrderID=''):
+        pass
 
-	def ReqOrderInsert(self, pInstrument='', pDirection=DirectType, pOffset=OffsetType, pPrice=0.0, pVolume=1, pType=OrderType, pCustom=0):
-		pass
+    def Release(self):
+        pass
 
+    def OnFrontConnected(self):
+        """"""
+        pass
 
-	def ReqOrderAction(self, OrderID=''):
-		pass
+    def OnFrontDisConnected(self, error=0):
+        """"""
+        pass
 
+    def OnRspUserLogin(self, info=InfoField):
+        """"""
+        pass
 
-	def Release(self):
-		pass
+    def OnRtnOrder(self, f=OrderField):
+        """"""
+        print(f.__dict__)
 
+    def OnRtnTrade(self, f=TradeField):
+        """"""
+        pass
 
-	def OnFrontConnected(self):
-		""""""
-		pass
+    def OnRtnCancel(self, f=OrderField):
+        """"""
+        pass
 
-
-	def OnFrontDisConnected(self, error=0):
-		""""""
-		pass
-
-
-	def OnRspUserLogin(self, info=InfoField):
-		""""""
-		pass
-
-
-	def OnRtnOrder(self, f=OrderField):
-		""""""
-		print(f.__dict__)
-
-
-	def OnRtnTrade(self, f=TradeField):
-		""""""
-		pass
-
-
-	def OnRtnCancel(self, f=OrderField):
-		""""""
-		pass
-
-
-	def OnRtnErrOrder(self, f=OrderField, info=InfoField):
-		""""""
-		pass
+    def OnRtnErrOrder(self, f=OrderField, info=InfoField):
+        """"""
+        pass

@@ -27,6 +27,44 @@
 			"stopOnEntry": false,
 			"pythonPath": "${config:python.pythonPath}",
 			"program": "${workspaceRoot}/py_ctp/test_api.py",
+			"args": [
+				// "tcp://140.206.80.234:41205,tcp://140.206.80.234:41213",
+				// "2071",
+				// "99681464",
+				// "258369"
+			],
+			"cwd": "${workspaceRoot}",
+			"env": {},
+			"envFile": "${workspaceRoot}/.env",
+			"debugOptions": [
+				"WaitOnAbnormalExit",
+				"WaitOnNormalExit",
+				"RedirectOutput"
+			]
+		},
+		{
+			"name": "at_test",
+			"type": "python",
+			"request": "launch",
+			"stopOnEntry": false,
+			"pythonPath": "${config:python.pythonPath}",
+			"program": "${workspaceRoot}/py_at/at_test.py",
+			"cwd": "${workspaceRoot}",
+			"env": {},
+			"envFile": "${workspaceRoot}/.env",
+			"debugOptions": [
+				"WaitOnAbnormalExit",
+				"WaitOnNormalExit",
+				"RedirectOutput"
+			]
+		},
+		{
+			"name": "at_adapter_test",
+			"type": "python",
+			"request": "launch",
+			"stopOnEntry": false,
+			"pythonPath": "${config:python.pythonPath}",
+			"program": "${workspaceRoot}/py_at/py_at_adapter_test.py",
 			"cwd": "${workspaceRoot}",
 			"env": {},
 			"envFile": "${workspaceRoot}/.env",
@@ -51,22 +89,6 @@
 				"pythonPath": "${env:SPARK_HOME}/bin/spark-submit"
 			},
 			"program": "${file}",
-			"cwd": "${workspaceRoot}",
-			"env": {},
-			"envFile": "${workspaceRoot}/.env",
-			"debugOptions": [
-				"WaitOnAbnormalExit",
-				"WaitOnNormalExit",
-				"RedirectOutput"
-			]
-		},
-		{
-			"name": "Python Module",
-			"type": "python",
-			"request": "launch",
-			"stopOnEntry": true,
-			"pythonPath": "${config:python.pythonPath}",
-			"module": "module.name",
 			"cwd": "${workspaceRoot}",
 			"env": {},
 			"envFile": "${workspaceRoot}/.env",
@@ -168,25 +190,6 @@
 				"WaitOnAbnormalExit",
 				"WaitOnNormalExit",
 				"RedirectOutput"
-			]
-		},
-		{
-			"name": "Pyramid",
-			"type": "python",
-			"request": "launch",
-			"stopOnEntry": true,
-			"pythonPath": "${config:python.pythonPath}",
-			"cwd": "${workspaceRoot}",
-			"env": {},
-			"envFile": "${workspaceRoot}/.env",
-			"args": [
-				"${workspaceRoot}/development.ini"
-			],
-			"debugOptions": [
-				"WaitOnAbnormalExit",
-				"WaitOnNormalExit",
-				"RedirectOutput",
-				"Pyramid"
 			]
 		},
 		{
