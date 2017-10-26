@@ -235,10 +235,6 @@ class at_test:
         """"""
         print(pOrder)
 
-    def OnErrOrder(self, pOrder=CThostFtdcOrderField):
-        """"""
-        print(pOrder)
-
     #----------------------------------------------------------------------
     def OnTrade(self, pTrade=CThostFtdcTradeField):
         """"""
@@ -304,7 +300,7 @@ class at_test:
         self.t.OnRtnOrder = self.OnOrder
         self.t.OnRtnTrade = self.OnTrade
         self.t.OnRtnCancel = self.OnCancel
-        self.t.OnRtnErrOrder = self.OnErrOrder
+        self.t.OnRtnErrOrder = self.OnErrorOrder
 
         front = 'tcp://180.168.146.187:10000'
         self.t.ReqConnect(front)
