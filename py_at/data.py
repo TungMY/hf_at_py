@@ -7,15 +7,16 @@ __mtime__ = '2016/8/16'
 """
 
 import time
-
-from py_at.at_struct import *
-from py_at.OrderItem import OrderItem
-from py_at.EnumDefine import *
-from py_at.Bar import Bar
-from py_at.switch import switch
-
 import numpy as np
 import talib
+
+from py_at.at_struct import *
+from py_at.at_tick import Tick
+from py_at.at_order import OrderItem
+from py_at.enums import *
+from py_at.bar import Bar
+from py_at.switch import switch
+
 
 
 class Data(object):

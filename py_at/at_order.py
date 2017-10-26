@@ -7,7 +7,7 @@ __mtime__ = '2016/8/16'
 """
 
 import time
-from py_at.EnumDefine import *
+from py_at.enums import *
 
 
 ########################################################################

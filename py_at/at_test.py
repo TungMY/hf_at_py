@@ -18,10 +18,10 @@ import time  #可能前面的import模块对time有影响,故放在最后
 #sys.path.append('..')  #调用父目录下的模块
 sys.path.append(os.path.join(sys.path[0], '..'))  # 调用父目录下的模块
 from py_at.at_struct import *
-from py_at.EnumDefine import *
-from py_at.Bar import Bar
-from py_at.Data import Data
-from py_at.OrderItem import OrderItem
+from py_at.enums import *
+from py_at.bar import Bar
+from py_at.data import Data
+from py_at.at_order import OrderItem
 from py_at.adapters.ctp_trade import CtpTrade
 from py_at.adapters.ctp_quote import CtpQuote
 from py_ctp.ctp_struct import *
@@ -293,7 +293,7 @@ class at_test:
                 #print(tick)
 
     #----------------------------------------------------------------------
-    def main(self):
+    def CTPRun(self):
         """"""
         self.t.OnFrontConnected = self.OnFrontConnected
         self.t.OnRspUserLogin = self.OnRspUserLogin
@@ -311,5 +311,5 @@ if __name__ == '__main__':
     p.load_strategy()
     p.read_data_test()
 
-    p.main()
+    p.CTPRun()
     input()

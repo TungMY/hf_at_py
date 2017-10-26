@@ -13,7 +13,7 @@ import itertools
 
 from py_at.switch import switch
 from py_at.at_struct import *
-from py_at.adapters.TradeAdapter import TradeAdapter
+from py_at.adapters.trade import TradeAdapter
 from py_ctp.trade import Trade
 from py_ctp.ctp_struct import *
 

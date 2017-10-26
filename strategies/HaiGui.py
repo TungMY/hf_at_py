@@ -6,9 +6,9 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/8/25'
 """
 
-from py_at.Data import Data
-from py_at.EnumDefine import *
 import talib
+from py_at.data import Data
+from py_at.enums import *
 
 
 class HaiGui():

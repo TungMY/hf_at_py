@@ -7,7 +7,7 @@ __mtime__ = '2016/9/23'
 """
 
 from py_at.at_struct import *
-
+from py_at.at_tick import Tick
 
 class QuoteAdapter:
     """"""

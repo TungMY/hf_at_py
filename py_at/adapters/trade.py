@@ -6,7 +6,7 @@ __author__ = 'HaiFeng'
 __mtime__ = '2016/9/21'
 """
 
-from at_struct import *
+from py_at.at_struct import *
 
 
 class TradeAdapter:

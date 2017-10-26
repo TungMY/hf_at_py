@@ -10,7 +10,8 @@ import time
 import _thread
 
 from py_at.at_struct import *
-from adapters.QuoteAdapter import QuoteAdapter
+from py_at.at_tick import Tick
+from adapters.quote import QuoteAdapter
 from py_ctp.quote import *
 
 

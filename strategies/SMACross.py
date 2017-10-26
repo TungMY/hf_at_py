@@ -7,8 +7,8 @@ __mtime__ = '2016/8/16'
 """
 import talib
 
-from py_at.EnumDefine import *
-from py_at.Data import Data
+from py_at.enums import *
+from py_at.data import Data
 
 class SMACross(Data):
 	def __init__(self):
@@ -33,6 +33,9 @@ class SMACross(Data):
 			self.UpdateParams()
 		if len(self.C) < self.p_ma2:
 			return
+
+		if self.Tick.Instrument and self.Tick.Instrument != '':
+			print('self.Tick.LastPrice')
 
 		ma1 = talib.SMA(self.C, self.p_ma1)
 		ma2 = talib.SMA(self.C, self.p_ma2)
